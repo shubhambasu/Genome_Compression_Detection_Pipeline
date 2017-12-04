@@ -116,7 +116,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 		User with pre-mapped depth file will require to do the following: 
 		1. Rename the depth file into prefix_GCDP.depth
-		2. Copy and chromosome_splitter.sh in the same folder containing the depth file using following command:
+		2. Copy and run chromosome_splitter.sh in the same folder containing the depth file using following command:
 			$ sh chromosome_splitter.sh chromosome_list.txt prefix_GCDP.depth
 	
 	Step (ii): For running in cmd line, from GCDP/ use the following command:
