@@ -181,7 +181,13 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	 sample_VEG_genome_compression_final.gff
 	 sample_VEG_genome_logfile.txt
 
-## Acknowledgment
+## Author
+* **Shubham Basu** - *Initial work* - (https://github.com/shubhambasu)
+
+## References
+Li, H., B. Handsaker, A. Wysoker, T. Fennell, J. Ruan, N. Homer, G. Marth, G. Abecasis and R. Durbin (2009). "The Sequence Alignment/Map format and SAMtools." Bioinformatics 25(16): 2078-2079.
+
+Li, H. and R. Durbin (2009). "Fast and accurate short read alignment with Burrows-Wheeler transform." Bioinformatics 25(14): 1754-1760.
 
 	
 	
