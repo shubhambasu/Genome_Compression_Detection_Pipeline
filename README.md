@@ -6,6 +6,8 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 
 ## Workflow
 
+![gcdp_pipeline_workflow](https://user-images.githubusercontent.com/4494942/33569649-4fad280c-d8f8-11e7-83c1-9b3966a35d62.png)
+
 	The pipeline works in 2 steps :
 	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. 
 	(Currently works for pair-end reads only)
@@ -37,7 +39,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 		
 	
-![gcdp_pipeline_workflow](https://user-images.githubusercontent.com/4494942/33569649-4fad280c-d8f8-11e7-83c1-9b3966a35d62.png)
+
 	
 	         
 
