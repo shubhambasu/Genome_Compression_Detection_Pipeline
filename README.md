@@ -21,9 +21,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are  enriched in compressions relative to its adjacent regions. 
 	
-	
-	
-	
+		
 	
 	
 	
