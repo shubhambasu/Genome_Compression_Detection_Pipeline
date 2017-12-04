@@ -84,7 +84,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	Format of parameter file: 
 	output_filename=prefix
 	cords=/path/to/all_co-ordinates.txt
-	depth_file_loc=/path/to/folder_containint_all_depth_files
+	depth_file_loc=/path/to/folder_containing_all_depth_files
 	single_copy_gene_cords=/path/to/single_copy_co-ordinates.txt
 	chromosome_list=/path/to/chromosome_list.txt
 		
@@ -101,28 +101,29 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	to generate read depth based histograms highlighting regions of detected compressions [ See Running GCDP for details ] 
 	
 ## Running GCDP 
+
+	Make sure to use same prefix throughout the entire pipeline. (See Example for details). Its a good practice to use the following command on shell scripts to clean files from un-necessary characters before running.
+	
+	$ dos2unix *.sh
+	$ dos2unix *.r
 	
 	GCDP runs in 2 steps. User can skip step (i) if pre-mapped depth file is already present. Run chromosome_splitter.sh in this case ( See below). 
 	
 	Step (i): For running in cmd line, from DEPTH/ and use the following command : 
-	sh depth_maker.sh /path/to/reference_genome.fasta /path/to/pair_end_read_1.fastq /path/to/pair_end_read_2.fastq chromosome_list.txt prefix
-	Make sure to use same prefix throughout the entire pipeline. (See Example for running in batch mode)
+	$ sh depth_maker.sh /path/to/reference_genome.fasta /path/to/pair_end_read_1.fastq /path/to/pair_end_read_2.fastq chromosome_list.txt prefix
 	
-	User with pre-mapped depth file will require to do the following: 
-	1. Rename the depth file into prefix_GCDP.depth
-	2. Run chromosome_splitter.sh using following command:
-	sh chromosome_splitter.sh	chromosome_list.txt 	 prefix_GCDP.depth
+		User with pre-mapped depth file will require to do the following: 
+		1. Rename the depth file into prefix_GCDP.depth
+		2. Run chromosome_splitter.sh using following command:
+		$ sh chromosome_splitter.sh chromosome_list.txt prefix_GCDP.depth
 	
-	Step (ii): From GCDP/ use the following command: 
-	
+	Step (ii): or running in cmd line, from GCDP/ use the following command:
 	sh gcdp.sh parameter.file 
 	
+        For generating histogram using the resulting compression_final.gff file, use the following command: 
 	
-	
-	
-	
-	
-	
+	$ sh histogram.sh depth_file_loc chromosome_list  cnv compression.gff prefix 
+	##  cnv can be located in output file named prefix_single_genes_read_covg_stat.txt (See Output for details)
 	
 ##  Output files 
 
@@ -137,7 +138,10 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 			       5. prefix_compression_final.gff: A gff file detailing co-ordinates and estimates of compression across entire genome sequence based on relative difference in compression (copy number >2). This is output of phase 4. 
 			       6. prefix_logfile.txt: A logfile detailing the statistics from running step (ii) of GCDP. 
 			       
+	Additionally, if running histogram.sh , the histogram files are generated per chromosome with prefix _unique_sorted.depth_cnv.png and can be used for visualization purpose. 		      
 			       
+## Example 
+	
 
 			       
 			     
@@ -146,9 +150,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 	
 	
-	
-	geneid	Chr	start	end	mean(read mapped) sd(read_mapped) median(read_mapped) max(read_mapped) sd(diff bw read mapped to consecutive nucletides)
-	
+
 	
 	
 	
