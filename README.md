@@ -10,16 +10,27 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. (Currently works for pair-              end reads only)
 	(ii) Using depth files generated from step (i) and user-provided single copy gene/ genomic co-ordinates to identify and estimate              genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
 	
-	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the reference genome sequence. [See Input files & Examples for details] 
+	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the reference    
+	genome sequence. [See Input files & Examples for details] 
 	
 	Step (ii) consists of 4 phases:
-	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses                    its distribution and deviation to filter out false positives and background noise. It further generates Compression Detection Threshold, a value corresponding to 3 times standard deviation of average read depth, which is used in subsequent phases for calculation and estimation of compressions. 
+	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses 
+	its distribution and deviation to filter out false positives and background noise. It further generates Compression Detection 
+	Threshold, a value corresponding to 3 times standard deviation of average read depth, which is used in subsequent phases for
+	calculation and estimation of compressions. 
 	
-	Phase 2. In this step, compressions of user-provided genomic co-ordinates are calculated using Compression Detection Threshold from phase 1. This step is particularly useful when it is required to calculate copy number of specific genes or intergenic sequences that are believed to be compressed in the given reference sequence. This phase is optional and runs parallelly with phase 3 & 4.  
+	Phase 2. In this step, compressions of user-provided genomic co-ordinates are calculated using Compression Detection Threshold from
+	phase 1. This step is particularly useful when it is required to calculate copy number of specific genes or intergenic sequences that
+	are believed to be compressed in the given reference sequence. This phase is optional and runs parallelly with phase 3 & 4.  
 	
-	Phase 3. The Compression Detection Threshold is used to estimate compression / copy number for each base across entire genome sequence to seperate regions with detected compressions from non-compressed regions. It works by clustering these compressed regions and defining boundaries between segments that are atleast 50bp apart. This phase provides genomic segments that represent compressions with a wider genomic resolution and copy number which has been averaged over relatively longer sequence ength. 
+	Phase 3. The Compression Detection Threshold is used to estimate compression / copy number for each base across entire genome sequence
+	to seperate regions with detected compressions from non-compressed regions. It works by clustering these compressed regions and 
+	defining boundaries between segments that are atleast 50bp apart. This phase provides genomic segments that represent compressions with a wider genomic resolution and copy number which has been averaged over relatively longer sequence ength. 
 	
-	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the 	compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are  enriched in compressions relative to its adjacent regions. 
+	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the 	
+	compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed
+	segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are 
+	enriched in compressions relative to its adjacent regions. 
 	
 		
 	
@@ -57,7 +68,8 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 ## Details of input files:
 	
-	reference_genome.fasta: Genome sequence in fasta format for which the genomic compressions are calculated. Please only include chromosomes and not broken contigs for optimum use.
+	reference_genome.fasta: Genome sequence in fasta format for which the genomic compressions are calculated. Please only include 
+	chromosomes and not broken contigs for optimum use.
 	pair_end_read_1.fastq : Forward reads in fastq format. 
 	pair_end_read_2.fastq : Reverse reads in fastq format. 
 	Reads should be ideally clean ( using trimmomatic for example ) before using.If using multiple libraries they can be concatenated into   total forward and reverse read fastq files.							                   
@@ -67,7 +79,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	depth_file.depth: 	        Depth file generated from step (i) or the one generated by user from mapping single/pair-end reads to reference_genome.fasta 
 	single_copy_co-ordinates.txt:	A tab delimited co-ordinates of genes / genomic segments believed to be present in single copy in genome sequence
 	all_co-ordinates.txt:	        A tab delimited co-ordinates of genes / genomic segments for which compressions need to be calculated (optional)
-	chromosome_list.txt:	        A text file listing name of chromosomes (one in each line). Make sure the name matches the header representing chromosomes in input reference_genome.fasta file.
+	chromosome_list.txt:	        A text file listing name of chromosomes (one in each line). Make sure the name matches the header    representing chromosomes in input reference_genome.fasta file.
 	parameter.file:			A text file detailing name and locations of the files required for running step (ii)
 	
 	                [See Example for details on the format and content of the input files] 									
