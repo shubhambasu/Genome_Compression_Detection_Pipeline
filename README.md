@@ -125,6 +125,11 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 			$ sh histogram.sh depth_file_loc chromosome_list  cnv compression.gff prefix 
 	##  cnv can be located in output file named prefix_single_genes_read_covg_stat.txt (See Output for details)
 	
+	For running the pipeline in cluster, use DEPTH/main_depth.sh for step (i) and GCDP/main_gcdp.sh for step (ii). 
+	make sure to change the directories for file locations as well as exporting PATH (or loading modules ) for SAMTools, BWA and R before submitting the job using following command: 
+			$ qsub main_depth.sh 
+			$ qsub main_gcdp.sh	
+		
 ##  Output files 
 
         The most important output files / folders of user interest are explainf below:
