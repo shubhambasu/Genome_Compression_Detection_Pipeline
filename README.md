@@ -37,7 +37,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 		
 	
-	![ScreenShot](https://raw.github.com/shubhambasu/Genome_Compression_Detection_Pipeline/blob/GCDP_V1.0/GCDP_pipeline_workflow.png)
+![gcdp_pipeline_workflow](https://user-images.githubusercontent.com/4494942/33569649-4fad280c-d8f8-11e7-83c1-9b3966a35d62.png)
 	
 	         
 
