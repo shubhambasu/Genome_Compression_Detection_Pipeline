@@ -1,5 +1,7 @@
-output_filename=sample_VEG_genome
-cords=/lustre1/sb16478/escratch4_from_zcluster/sb16478/files/t_gondii_ref_strains/gcdp/gcdp_check/sample_VEG_all_genes.txt
-depth_file_loc=/lustre1/sb16478/escratch4_from_zcluster/sb16478/files/t_gondii_ref_strains/gcdp/gcdp_check/sample_depth
-single_copy_gene_cords=/lustre1/sb16478/escratch4_from_zcluster/sb16478/files/t_gondii_ref_strains/gcdp/gcdp_check/sample_VEG_single_copy_toxo.txt
-chromosome_list=chromosome_list.txt
+output_filename=prefix
+cords=/path/to/all_co-ordinates.txt
+depth_file_loc=/path/to/folder_containing_all_depth_files
+single_copy_gene_cords=/path/to/single_copy_co-ordinates.txt
+chromosome_list=/path/to/chromosome_list.txt
+
+
