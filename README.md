@@ -15,7 +15,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	to identify and estimate genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
 	
 	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the 
-	reference genome sequence. [See Input files & Examples for details] 
+	reference genome sequence. [See Input files for details] 
 	
 	Step (ii) consists of 4 phases:
 	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses 
@@ -35,13 +35,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the 	
 	compressed genomic segments based on difference in copy number ( copy number >2 by default setting)  between 2 consecutive bases. Thus it redefines boundaries of compressed
 	segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are 
-	enriched in compressions relative to its adjacent regions. 
-	
-		
-	
-
-	
-	         
+	enriched in compressions relative to its adjacent regions.   
 
 ## Prerequisites
 
@@ -68,8 +62,8 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 				         3. 	single_copy_co-ordinates.txt 
 				         4. 	all_co-ordinates.txt
 				   
-	Location and name of files required in step (ii) must be written in parameter.file [see example] 
-	Then only the parameter.file will be required for running his step.
+	Location and name of files required in step (ii) must be written in parameter.file [see Running GCDP] 
+	The parameter.file is the only file required for running this step.
 	
 ## Details of input files:
 	
@@ -77,7 +71,7 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	chromosomes and not broken contigs for optimum use.
 	pair_end_read_1.fastq : Forward reads in fastq format. 
 	pair_end_read_2.fastq : Reverse reads in fastq format. 
-	Reads should be ideally clean ( using trimmomatic for example ) before using.If using multiple libraries they can be concatenated into   total forward and reverse read fastq files.							                   
+	Reads should be ideally clean ( using trimmomatic for example ) before using.If using multiple libraries they can be concatenated into total forward and reverse read fastq files.							                   
     
 	User can skip all the above files required for step (i) if starting with pre-mapped depth file
 	
@@ -87,17 +81,92 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	chromosome_list.txt:	        A text file listing name of chromosomes (one in each line). Make sure the name matches the header    representing chromosomes in input reference_genome.fasta file.
 	parameter.file:			A text file detailing name and locations of the files required for running step (ii)
 	
-	                [See Example for details on the format and content of the input files] 									
-	
-	
+	Format of parameter file: 
+	output_filename=prefix
+	cords=/path/to/all_co-ordinates.txt
+	depth_file_loc=/path/to/folder_containint_all_depth_files
+	single_copy_gene_cords=/path/to/single_copy_co-ordinates.txt
+	chromosome_list=/path/to/chromosome_list.txt
+		
+	                [See Example for more details]								
+		
 ##  Brief description of GCDP script files
 	
-	Scripts required for step (i) & (ii) are located inside Depth_Maker and GCDP folders respectively. 
-	Inside Depth_Maker
-			depth_maker.sh : Main script file that generates depth file following mapping pair_end_read_1/2.fastq reads to reference_genome.fasta. 
-							
-	Inside GCDP 
-			gcdp.sh: Main script file that detects and estimates compression in entire reference_genome.fasta (using entire_chrom.sh & entire_chrom_subsegment.sh) as well as those provided in all_co-ordinates.txt (using cords.sh). 
+	Scripts required for step (i) & (ii) are located inside DEPTH and GCDP folders respectively. 
+	Main file inside DEPTH is depth_maker.sh which is used for performing step (i) to generate depth file following mapping of 
+	pair_end_read_1/2.fastq reads to reference_genome.fasta and filtering out reads that are unmapped or mapped to more than one 
+	location. 
+	Main file inside GCDP is gcdp.sh which detects and estimates compression in entire reference_genome.fasta (using entire_chrom.sh
+	& entire_chrom_subsegment.sh) as well as those provided in all_co-ordinates.txt (using cords.sh). Hist.sh can be used in the end 
+	to generate read depth based histograms highlighting regions of detected compressions [ See Running GCDP for details ] 
+	
+## Running GCDP 
+	
+	GCDP runs in 2 steps. User can skip step (i) if pre-mapped depth file is already present. Run chromosome_splitter.sh in this case ( See below). 
+	
+	Step (i): For running in cmd line, from DEPTH/ and use the following command : 
+	sh depth_maker.sh /path/to/reference_genome.fasta /path/to/pair_end_read_1.fastq /path/to/pair_end_read_2.fastq chromosome_list.txt prefix
+	Make sure to use same prefix throughout the entire pipeline. (See Example for running in batch mode)
+	
+	User with pre-mapped depth file will require to do the following: 
+	1. Rename the depth file into prefix_GCDP.depth
+	2. Run chromosome_splitter.sh using following command:
+	sh chromosome_splitter.sh	chromosome_list.txt 	 prefix_GCDP.depth
+	
+	Step (ii): From GCDP/ use the following command: 
+	
+	sh gcdp.sh parameter.file 
+	
+	
+	
+	
+	
+	
+	
 	
 ##  Output files 
+
+        The most important output files / folders of user interest are explainf below:
+
+	Output from running Step (i): 1. Folder named prefix_bam_chrom_files which contains required depth files for running step (ii)
+	                              2. prefix_logfile.txt : Logfile detailing the result statistics from running step (i)    
+	Output from step (ii): 1. prefix_single_genes_stat.txt:  A tab delimited format showing gene-id, start,end, chromosome, average(of mapped reads), standard deviation(of mapped reads), median (of mapped reads), maximum number ofreads mapped, standard deviation of difference in reads mapped between two conseuctive bases
+			       2. prefix_single_genes_read_covg_stat.txt: Compression Detection Threshold value
+			       3. prefix_all_cords_result.txt: Tab delimited format giving estimated compression / copy number of user-provided gene/genomic segments. (Format: geneid chromosome start end length average_read_depth copy_number )
+			       4. prefix_compression.gff : A gff file detailing co-ordinates and estimates of compression across entire genome sequence based on relative distance (consecutive segments seperated by >50bp) . This is output of phase 3.
+			       5. prefix_compression_final.gff: A gff file detailing co-ordinates and estimates of compression across entire genome sequence based on relative difference in compression (copy number >2). This is output of phase 4. 
+			       6. prefix_logfile.txt: A logfile detailing the statistics from running step (ii) of GCDP. 
+			       
+			       
+
+			       
+			     
+
+			       
+	
+	
+	
+	
+	geneid	Chr	start	end	mean(read mapped) sd(read_mapped) median(read_mapped) max(read_mapped) sd(diff bw read mapped to consecutive nucletides)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
