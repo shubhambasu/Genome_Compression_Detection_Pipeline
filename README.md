@@ -7,19 +7,19 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 ## Workflow
 
 	The pipeline works in 2 steps :
-	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. (Currently works for pair-end reads only)
-	(ii) Using depth files generated from step (i) and user-provided single copy gene/ genomic co-ordinates to identify and estimate genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
+	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. (Currently works for pair-              end reads only)
+	(ii) Using depth files generated from step (i) and user-provided single copy gene/ genomic co-ordinates to identify and estimate              genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
 	
 	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the reference genome sequence. [See Input files & Examples for details] 
 	
 	Step (ii) consists of 4 phases:
-	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses its distribution and deviation to filter out false positives and background noise. It further generates Compression Detection Threshold, a value corresponding to 3 times standard deviation of average read depth, which is used in subsequent phases for calculation and estimation of compressions. 
+	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses                    its distribution and deviation to filter out false positives and background noise. It further generates Compression Detection Threshold, a value corresponding to 3 times standard deviation of average read depth, which is used in subsequent phases for calculation and estimation of compressions. 
 	
 	Phase 2. In this step, compressions of user-provided genomic co-ordinates are calculated using Compression Detection Threshold from phase 1. This step is particularly useful when it is required to calculate copy number of specific genes or intergenic sequences that are believed to be compressed in the given reference sequence. This phase is optional and runs parallelly with phase 3 & 4.  
 	
 	Phase 3. The Compression Detection Threshold is used to estimate compression / copy number for each base across entire genome sequence to seperate regions with detected compressions from non-compressed regions. It works by clustering these compressed regions and defining boundaries between segments that are atleast 50bp apart. This phase provides genomic segments that represent compressions with a wider genomic resolution and copy number which has been averaged over relatively longer sequence ength. 
 	
-	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are  enriched in compressions relative to its adjacent regions. 
+	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the 	compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed segments detected from previous step and generates a new list of genomic co-ordinates that represents genome locations that are  enriched in compressions relative to its adjacent regions. 
 	
 		
 	
