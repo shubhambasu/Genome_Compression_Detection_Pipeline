@@ -25,7 +25,8 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 	
 	Phase 3. The Compression Detection Threshold is used to estimate compression / copy number for each base across entire genome sequence
 	to seperate regions with detected compressions from non-compressed regions. It works by clustering these compressed regions and 
-	defining boundaries between segments that are atleast 50bp apart. This phase provides genomic segments that represent compressions with a wider genomic resolution and copy number which has been averaged over relatively longer sequence ength. 
+	defining boundaries between segments that are atleast 50bp apart. This phase provides genomic segments that represent 
+	compressions with a wider genomic resolution and copy number which has been averaged over relatively longer sequence ength. 
 	
 	Phase 4. This step uses the output from phase 3 and sharpens the resolution of the detected compressions by sub-segmenting the 	
 	compressed genomic segments based on difference in copy number between 2 consecutive bases. Thus it redefines boundaries of compressed
