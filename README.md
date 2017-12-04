@@ -7,11 +7,13 @@ Genomic Compression Detection Pipeline (GCDP) is a pipeline designed to efficien
 ## Workflow
 
 	The pipeline works in 2 steps :
-	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. (Currently works for pair-              end reads only)
-	(ii) Using depth files generated from step (i) and user-provided single copy gene/ genomic co-ordinates to identify and estimate              genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
+	(i)  Mapping reads to reference genome sequence and generating depth file from uniquely mapped reads. 
+	(Currently works for pair-end reads only)
+	(ii) Using depth files generated from step (i) and user-provided single copy gene/ genomic co-ordinates
+	to identify and estimate genomic compressions across entire genome sequence as well as specific genomic co-ordinates.
 	
-	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the reference    
-	genome sequence. [See Input files & Examples for details] 
+	User can skip step (i) by providing pre-mapped depth file generated from mapping either single or pair-end reads to the 
+	reference genome sequence. [See Input files & Examples for details] 
 	
 	Step (ii) consists of 4 phases:
 	Phase 1. This step calculates average read depth coverage across all user-provided single copy gene/genomic segments and uses 
