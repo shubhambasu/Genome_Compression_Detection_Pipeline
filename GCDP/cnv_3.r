@@ -17,7 +17,7 @@ write(c("First Mean=",toString(mean(a$V5)),"First SD=",toString(sd(a$V5)), "Firs
 a2=a[a$V6<=quantile(a$V6,0.25),]
 threshold_1=mean(a2$V5)+sd(a2$V5*3)
 
-write(c("Second Mean=" , toString(mean(a$V5)) , "Second SD=" , toString(sd(a$V5)) , "Second Threshold=" , toString(threshold_1)) , file=y,ncolumns =5,append = TRUE, sep = "\t")
+write(c("Second Mean=" , toString(mean(a2$V5)) , "Second SD=" , toString(sd(a2$V5)) , "Second Threshold=" , toString(threshold_1)) , file=y,ncolumns =5,append = TRUE, sep = "\t")
 
 
 
@@ -27,7 +27,7 @@ a3=a2[a2$V9<=quantile(a2$V9,0.25),]
 #nrow(a3)
 threshold_2=mean(a3$V5)+sd(a3$V5*3)
 
-write(c("Third Mean=",toString(mean(a$V5)),"Third SD=",toString(sd(a$V5)),"Third Threshold=",toString(threshold_2)), file=y,ncolumns =5,append = TRUE, sep = "\t")
+write(c("Third Mean=",toString(mean(a3$V5)),"Third SD=",toString(sd(a3$V5)),"Third Threshold=",toString(threshold_2)), file=y,ncolumns =5,append = TRUE, sep = "\t")
 
 
 
