@@ -20,7 +20,7 @@ echo $line | awk '{print $0}' > tmp_4
 chrm=$(cat tmp_4 | awk '{print $1}') 
 #grep $chrm $i6 > $chrm".depth"
  
-#grep -w $chrm  $4 | awk '{for (i = $4; i <= $5; i++) print i}' > $chrm"_tmp"
+grep -w $chrm  $4 | awk '{for (i = $4; i <= $5; i++) print i}' > $chrm"_tmp"
 echo "histogram of" $chrm "started" 
 head $1/$chrm"_"*"_unique_sorted.depth"
 Rscript --vanilla  histogram.r $1/$chrm"_"*"_unique_sorted.depth" $chrm"_tmp" $limit $cnv  &
