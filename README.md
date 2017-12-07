@@ -1,4 +1,4 @@
-#  Developing a novel pipeline for detecting genomic compressions caused by whole genome misassembly.
+#  A novel pipeline for detecting genomic compressions caused by whole genome misassembly.
 
 ## Synopsis
 
